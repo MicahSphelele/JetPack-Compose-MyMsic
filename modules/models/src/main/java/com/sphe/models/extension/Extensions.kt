@@ -1,6 +1,7 @@
 package com.sphe.models.extension
 
 import android.database.Cursor
+import android.support.v4.media.session.MediaSessionCompat
 import androidx.core.net.toUri
 import com.google.android.gms.cast.MediaInfo
 import com.sphe.models.Song
@@ -78,3 +79,7 @@ inline fun <reified T> Cursor.valueOrDefault(name: String, defaultValue: T): T {
 }
 
 fun Cursor.valueOrEmpty(name: String): String = valueOrDefault(name, "")
+
+fun List<MediaSessionCompat.QueueItem>?.toIDList(): LongArray {
+    return this?.map { it.queueId }?.toLongArray() ?: LongArray(0)
+}
