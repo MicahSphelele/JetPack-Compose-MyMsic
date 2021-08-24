@@ -8,3 +8,7 @@ dependencyResolutionManagement {
 }
 rootProject.name = "My Music"
 include ':app'
+include ':modules'
+include ':modules:ui-compose'
+include ':modules:ui-theme'
+include ':modules:models'

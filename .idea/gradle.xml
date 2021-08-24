@@ -12,6 +12,10 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/modules" />
+            <option value="$PROJECT_DIR$/modules/models" />
+            <option value="$PROJECT_DIR$/modules/ui-compose" />
+            <option value="$PROJECT_DIR$/modules/ui-theme" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

@@ -100,7 +100,8 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-common-java8:2.3.1' //2.2.0
 
     implementation "com.google.accompanist:accompanist-insets:$google_accompanist_version"
-    implementation "com.google.accompanist:accompanist-insets-ui:$google_accompanist_version"
+    implementation "com.google.accompanist:accompani" +
+            "st-insets-ui:$google_accompanist_version"
     implementation "com.google.accompanist:accompanist-pager:$google_accompanist_version"
     implementation "com.google.accompanist:accompanist-permissions:$google_accompanist_version"
     implementation "com.google.accompanist:accompanist-placeholder-material:$google_accompanist_version"
