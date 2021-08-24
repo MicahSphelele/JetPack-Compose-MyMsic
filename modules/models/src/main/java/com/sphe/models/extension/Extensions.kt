@@ -1,7 +1,14 @@
 package com.sphe.models.extension
 
 import android.database.Cursor
- fun Int.normalizeTrackNumber(): Int {
+import androidx.core.net.toUri
+import com.google.android.gms.cast.MediaInfo
+import com.sphe.models.Song
+import com.sphe.models.constants.Utils.getIPAddress
+import java.net.MalformedURLException
+import java.net.URL
+
+fun Int.normalizeTrackNumber(): Int {
     var returnValue = this
     // This fixes bug where some track numbers displayed as 100 or 200.
     while (returnValue >= 1000) {
