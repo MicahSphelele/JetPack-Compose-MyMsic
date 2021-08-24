@@ -31,7 +31,7 @@ data class Song(
 ) {
     companion object {
         fun fromCursor(cursor: Cursor, albumId: Long = -1, artistId: Long = -1) : Song {
-            return Song( id = cursor.value(MediaStore.Audio.Playlists.Members.AUDIO_ID),
+            return Song( id = cursor.value(MediaStore.Audio.Media._ID),
                  albumId = cursor.valueOrDefault(MediaStore.Audio.AudioColumns.ALBUM_ID, albumId),
              artistId = cursor.valueOrDefault(MediaStore.Audio.AudioColumns.ARTIST_ID, artistId),
              title = cursor.valueOrEmpty(MediaStore.Audio.AudioColumns.TITLE),
