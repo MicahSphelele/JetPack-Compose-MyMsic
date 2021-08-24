@@ -21,6 +21,10 @@ class MediaID(
 
     var mediaItem: MediaBrowserCompat.MediaItem? = null
 
+    fun asString(): String {
+        return TYPE + type + SEPARATOR + MEDIA_ID + mediaId + SEPARATOR + CALLER + caller
+    }
+
     fun fromString(s: String): MediaID {
         this.type = s.substring(6, s.indexOf(SEPARATOR))
         this.mediaId = s.substring(s.indexOf(SEPARATOR) + 3 + 10, s.lastIndexOf(SEPARATOR))
