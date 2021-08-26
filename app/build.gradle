@@ -62,7 +62,7 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.3.1'
     implementation 'androidx.activity:activity-compose:1.3.1'
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.4.0-alpha03"
-    testImplementation 'junit:junit:4.+'
+    testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 
@@ -100,8 +100,7 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-common-java8:2.3.1' //2.2.0
 
     implementation "com.google.accompanist:accompanist-insets:$google_accompanist_version"
-    implementation "com.google.accompanist:accompani" +
-            "st-insets-ui:$google_accompanist_version"
+    implementation "com.google.accompanist:accompanist-insets-ui:$google_accompanist_version"
     implementation "com.google.accompanist:accompanist-pager:$google_accompanist_version"
     implementation "com.google.accompanist:accompanist-permissions:$google_accompanist_version"
     implementation "com.google.accompanist:accompanist-placeholder-material:$google_accompanist_version"
