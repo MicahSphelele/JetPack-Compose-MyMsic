@@ -4,7 +4,7 @@ import android.util.Log
 
 object AppLogger {
 
-    private val TAG = "MyMusic"
+    private const val TAG = "MyMusic"
 
     fun info(message: String) {
         Log.i(TAG, message)
