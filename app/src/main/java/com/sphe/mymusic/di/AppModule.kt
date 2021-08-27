@@ -1,6 +1,7 @@
 package com.sphe.mymusic.di
 
 import android.app.Application
+import android.content.ContentResolver
 import android.content.Context
 import com.sphe.ui_base.storge.PreferencesStore
 import dagger.Module
@@ -17,4 +18,7 @@ class AppModule {
 
     @Provides
     fun providePreferenceStore(app: Application): PreferencesStore = PreferencesStore(app.applicationContext)
+
+    @Provides
+    fun contentResolver(app: Application): ContentResolver = app.contentResolver
 }
