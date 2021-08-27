@@ -22,23 +22,26 @@ data class Song(
     var album: String = "",
     var duration: Int = 0,
     var trackNumber: Int = 0
-) : MediaBrowserCompat.MediaItem(MediaDescriptionCompat.Builder()
-    .setMediaId(MediaID("${MusicServiceConstants.TYPE_SONG}", "$id").asString())
-    .setTitle(title)
-    .setIconUri(Utils.getAlbumArtUri(albumId))
-    .setSubtitle(artist)
-    .build(), FLAG_PLAYABLE
+) : MediaBrowserCompat.MediaItem(
+    MediaDescriptionCompat.Builder()
+        .setMediaId(MediaID("${MusicServiceConstants.TYPE_SONG}", "$id").asString())
+        .setTitle(title)
+        .setIconUri(Utils.getAlbumArtUri(albumId))
+        .setSubtitle(artist)
+        .build(), FLAG_PLAYABLE
 ) {
     companion object {
-        fun fromCursor(cursor: Cursor, albumId: Long = -1, artistId: Long = -1) : Song {
-            return Song( id = cursor.value(MediaStore.Audio.Media._ID),
-                 albumId = cursor.valueOrDefault(MediaStore.Audio.AudioColumns.ALBUM_ID, albumId),
-             artistId = cursor.valueOrDefault(MediaStore.Audio.AudioColumns.ARTIST_ID, artistId),
-             title = cursor.valueOrEmpty(MediaStore.Audio.AudioColumns.TITLE),
-             artist  = cursor.valueOrEmpty(MediaStore.Audio.AudioColumns.ARTIST),
-             album = cursor.valueOrEmpty(MediaStore.Audio.AudioColumns.ALBUM),
-             duration = cursor.value(MediaStore.Audio.AudioColumns.DURATION),
-             trackNumber  =cursor.value<Int>(MediaStore.Audio.AudioColumns.TRACK).normalizeTrackNumber()
+        fun fromCursor(cursor: Cursor, albumId: Long = -1, artistId: Long = -1): Song {
+            return Song(
+                id = cursor.value(MediaStore.Audio.Media._ID),
+                albumId = cursor.valueOrDefault(MediaStore.Audio.AudioColumns.ALBUM_ID, albumId),
+                artistId = cursor.valueOrDefault(MediaStore.Audio.AudioColumns.ARTIST_ID, artistId),
+                title = cursor.valueOrEmpty(MediaStore.Audio.AudioColumns.TITLE),
+                artist = cursor.valueOrEmpty(MediaStore.Audio.AudioColumns.ARTIST),
+                album = cursor.valueOrEmpty(MediaStore.Audio.AudioColumns.ALBUM),
+                duration = cursor.value(MediaStore.Audio.AudioColumns.DURATION),
+                trackNumber = cursor.value<Int>(MediaStore.Audio.AudioColumns.TRACK)
+                    .normalizeTrackNumber()
             )
         }
 
@@ -51,8 +54,14 @@ data class Song(
                 artist = cursor.valueOrEmpty(MediaStore.Audio.AudioColumns.ARTIST),
                 album = cursor.valueOrEmpty(MediaStore.Audio.AudioColumns.ALBUM),
                 duration = (cursor.value<Long>(MediaStore.Audio.AudioColumns.DURATION) / 1000).toInt(),
-                trackNumber = cursor.value<Int>(MediaStore.Audio.AudioColumns.TRACK).normalizeTrackNumber()
+                trackNumber = cursor.value<Int>(MediaStore.Audio.AudioColumns.TRACK)
+                    .normalizeTrackNumber()
             )
         }
+    }
+
+    override fun toString(): String {
+        return "{id : $id, albumId: $albumId, artistId: $artistId," +
+                " title: $title, artist: $artist, album: $album, duration: $duration, trackNumber: $trackNumber }"
     }
 }
