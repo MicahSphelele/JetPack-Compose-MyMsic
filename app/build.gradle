@@ -56,58 +56,68 @@ android {
 
 dependencies {
 
-    implementation 'androidx.core:core-ktx:1.6.0'
-    implementation 'androidx.appcompat:appcompat:1.3.1'
-    implementation 'com.google.android.material:material:1.4.0'
-    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.3.1'
-    implementation 'androidx.activity:activity-compose:1.3.1'
-    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.4.0-alpha03"
-    testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+    //implementation 'androidx.core:core-ktx:1.6.0'
+   // implementation 'androidx.appcompat:appcompat:1.3.1'
+    //implementation 'com.google.android.material:material:1.4.0'
+   // implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.3.1'
+
+    //implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.4.0-alpha03"
+   //testImplementation 'junit:junit:4.13.2'
+    //androidTestImplementation 'androidx.test.ext:junit:1.1.3'
+    //androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 
     //Jetpack Compose Unit testing
-    androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_version"
+    //androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_version"
 
     //Jetpack Compose UI tooling
-    debugImplementation "androidx.compose.ui:ui-tooling:$compose_version"
-    implementation "androidx.compose.ui:ui-tooling-preview:$compose_version"
+    //debugImplementation "androidx.compose.ui:ui-tooling:$compose_version"
+//    implementation "androidx.compose.ui:ui-tooling-preview:$compose_version"
 
     //Jetpack Compose
-    implementation "androidx.compose.ui:ui:$compose_version"
-    implementation "androidx.compose.foundation:foundation:$compose_version"
-    implementation "androidx.compose.runtime:runtime-livedata:$compose_version"
-    implementation "androidx.compose.runtime:runtime-rxjava2:$compose_version"
-    implementation "androidx.compose.material:material:$compose_version"
-    implementation "androidx.compose.material:material-icons-core:$compose_version"
-    implementation "androidx.compose.material:material-icons-extended:$compose_version"
-    implementation "androidx.lifecycle:lifecycle-viewmodel-compose:1.0.0-alpha07"
+//    implementation "androidx.compose.ui:ui:$compose_version"
+//    implementation 'androidx.activity:activity-compose:1.3.1'
+//    implementation "androidx.compose.foundation:foundation:$compose_version"
+//    implementation "androidx.compose.runtime:runtime-livedata:$compose_version"
+//    implementation "androidx.compose.runtime:runtime-rxjava2:$compose_version"
+//    implementation "androidx.compose.material:material:$compose_version"
+//    implementation "androidx.compose.material:material-icons-core:$compose_version"
+//    implementation "androidx.compose.material:material-icons-extended:$compose_version"
+//    implementation "androidx.lifecycle:lifecycle-viewmodel-compose:1.0.0-alpha07"
+//
+//    implementation "androidx.navigation:navigation-compose:$compose_navigation_version"
 
-    implementation "androidx.navigation:navigation-compose:$compose_navigation_version"
-
-    implementation "com.google.dagger:hilt-android:$hilt_android_version"
-    kapt "com.google.dagger:hilt-android-compiler:$hilt_version"
+    implementation project(":modules:ui-compose")
+    implementation project(":modules:ui-theme")
+    implementation project(":modules:ui-components")
+    implementation project(":modules:models")
+    //implementation project(":modules:ui-base")
+    kapt "androidx.lifecycle:lifecycle-common-java8:2.3.1"
 
     def hilt_lifecycle_view_model_version = "1.0.0-alpha03"
-    implementation "androidx.hilt:hilt-lifecycle-viewmodel:$hilt_lifecycle_view_model_version"
+    implementation "com.google.dagger:hilt-android:$hilt_android_version"
+    kapt "com.google.dagger:hilt-android-compiler:$hilt_version"
     kapt "androidx.hilt:hilt-compiler:$hilt_lifecycle_view_model_version"
 
-    def data_store_version = "1.0.0"
-    implementation "androidx.datastore:datastore-preferences:$data_store_version"
-    implementation "androidx.datastore:datastore-preferences-core:$data_store_version"
+   // def hilt_lifecycle_view_model_version = "1.0.0-alpha03"
+    //implementation "androidx.hilt:hilt-lifecycle-viewmodel:$hilt_lifecycle_view_model_version"
 
-    implementation 'androidx.lifecycle:lifecycle-process:2.3.1' //2.2.0
-    implementation 'androidx.lifecycle:lifecycle-common-java8:2.3.1' //2.2.0
 
-    implementation "com.google.accompanist:accompanist-insets:$google_accompanist_version"
-    implementation "com.google.accompanist:accompanist-insets-ui:$google_accompanist_version"
-    implementation "com.google.accompanist:accompanist-pager:$google_accompanist_version"
-    implementation "com.google.accompanist:accompanist-permissions:$google_accompanist_version"
-    implementation "com.google.accompanist:accompanist-placeholder-material:$google_accompanist_version"
-    implementation "com.google.accompanist:accompanist-swiperefresh:$google_accompanist_version"
-    implementation "com.google.accompanist:accompanist-systemuicontroller:$google_accompanist_version"
+//    def data_store_version = "1.0.0"
+//    implementation "androidx.datastore:datastore-preferences:$data_store_version"
+//    implementation "androidx.datastore:datastore-preferences-core:$data_store_version"
 
-    implementation "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:0.8.0"
-    implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:1.2.2"
+   // implementation 'androidx.lifecycle:lifecycle-process:2.3.1' //2.2.0
+   // implementation 'androidx.lifecycle:lifecycle-common-java8:2.3.1' //2.2.0
+
+//    implementation "com.google.accompanist:accompanist-insets:$google_accompanist_version"
+//    implementation "com.google.accompanist:accompanist-insets-ui:$google_accompanist_version"
+//    implementation "com.google.accompanist:accompanist-pager:$google_accompanist_version"
+//    implementation "com.google.accompanist:accompanist-permissions:$google_accompanist_version"
+//    implementation "com.google.accompanist:accompanist-placeholder-material:$google_accompanist_version"
+//    implementation "com.google.accompanist:accompanist-swiperefresh:$google_accompanist_version"
+//    implementation "com.google.accompanist:accompanist-systemuicontroller:$google_accompanist_version"
+
+//    implementation "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:0.8.0"
+//    implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:1.2.2"
 
 }

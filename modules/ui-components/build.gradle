@@ -39,7 +39,6 @@ android {
 }
 
 dependencies {
-
     api "com.airbnb.android:lottie-compose:4.0.0"
     api project(":modules:ui-compose")
     api project(":modules:ui-theme")

@@ -24,19 +24,31 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
+    buildFeatures {
+        compose = true
+    }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion "1.0.1"
+    }
+
     kotlinOptions {
         jvmTarget = '1.8'
     }
 }
 
 dependencies {
+    api project(":modules:ui-compose")
+    api project(":modules:base")
     implementation "com.google.dagger:hilt-android:2.38.1"
     kapt "com.google.dagger:dagger-compiler:2.38.1"
     kapt "com.google.dagger:hilt-compiler:2.38.1"
-    api project(":modules:ui-compose")
-    api project(":modules:base")
+
+
 }
