@@ -6,9 +6,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.graphics.Color
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
-import com.sphe.ui_base.ui.ColorPalettePreference
-import com.sphe.ui_base.ui.DarkModePreference
-import com.sphe.ui_base.ui.ThemeState
+import com.sphe.base.ui.ColorPalettePreference
+import com.sphe.base.ui.DarkModePreference
+import com.sphe.base.ui.ThemeState
 
 val DefaultTheme = ThemeState()
 val DefaultThemeDark = ThemeState(DarkModePreference.ON)

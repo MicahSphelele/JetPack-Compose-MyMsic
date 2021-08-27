@@ -2,8 +2,8 @@ package com.sphe.ui_theme
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
-import com.sphe.ui_base.storge.PreferencesStore
-import com.sphe.ui_base.ui.ThemeState
+import com.sphe.base.storge.PreferencesStore
+import com.sphe.base.ui.ThemeState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 

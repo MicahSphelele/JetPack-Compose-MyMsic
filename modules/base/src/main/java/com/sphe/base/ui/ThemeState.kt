@@ -1,4 +1,4 @@
-package com.sphe.ui_base.ui
+package com.sphe.base.ui
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize

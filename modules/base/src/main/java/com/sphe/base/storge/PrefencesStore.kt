@@ -1,4 +1,4 @@
-package com.sphe.ui_base.storge
+package com.sphe.base.storge
 
 import android.content.Context
 import androidx.datastore.core.DataStore

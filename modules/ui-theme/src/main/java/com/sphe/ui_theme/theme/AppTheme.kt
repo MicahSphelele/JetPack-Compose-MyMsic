@@ -10,7 +10,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color
-import com.sphe.ui_base.ui.ThemeState
+import com.sphe.base.ui.ThemeState
 
 val LocalThemeState = staticCompositionLocalOf<ThemeState> {
     error("No LocalThemeState provided")

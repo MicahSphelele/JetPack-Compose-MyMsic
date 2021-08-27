@@ -3,7 +3,7 @@ package com.sphe.mymusic.di
 import android.app.Application
 import android.content.ContentResolver
 import android.content.Context
-import com.sphe.ui_base.storge.PreferencesStore
+import com.sphe.base.storge.PreferencesStore
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

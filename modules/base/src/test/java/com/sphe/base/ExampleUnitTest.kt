@@ -1,4 +1,4 @@
-package com.sphe.ui_base
+package com.sphe.base
 
 import org.junit.Test
 
