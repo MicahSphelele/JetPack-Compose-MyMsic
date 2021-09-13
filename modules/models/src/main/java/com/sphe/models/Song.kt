@@ -1,6 +1,7 @@
 package com.sphe.models
 
 import android.database.Cursor
+import android.os.Parcelable
 import android.provider.MediaStore
 import android.support.v4.media.MediaBrowserCompat
 import android.support.v4.media.MediaDescriptionCompat
@@ -10,26 +11,21 @@ import com.sphe.models.extension.normalizeTrackNumber
 import com.sphe.models.extension.value
 import com.sphe.models.extension.valueOrDefault
 import com.sphe.models.extension.valueOrEmpty
+import com.sphe.models.pagination.BasePaginatedEntity
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class Song(
-    var id: Long = 0,
+    override var id: Long = 0,
     var albumId: Long = 0,
     var artistId: Long = 0,
     var title: String = "",
     var artist: String = "",
     var album: String = "",
     var duration: Int = 0,
-    var trackNumber: Int = 0
-) : MediaBrowserCompat.MediaItem(
-    MediaDescriptionCompat.Builder()
-        .setMediaId(MediaID("${MusicServiceConstants.TYPE_SONG}", "$id").asString())
-        .setTitle(title)
-        .setIconUri(Utils.getAlbumArtUri(albumId))
-        .setSubtitle(artist)
-        .build(), FLAG_PLAYABLE
-) {
+    var trackNumber: Int = 0,
+    override var page: Int = 0
+) : BasePaginatedEntity(), Parcelable {
     companion object {
         fun fromCursor(cursor: Cursor, albumId: Long = -1, artistId: Long = -1): Song {
             return Song(

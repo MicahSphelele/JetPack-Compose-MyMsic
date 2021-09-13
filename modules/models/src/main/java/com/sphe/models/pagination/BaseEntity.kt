@@ -1,8 +1,7 @@
 package com.sphe.models.pagination
 
 interface BaseEntity {
-    val id: String
-    var params: String
+    val id: Long
 }
 
 interface PaginatedEntity: BaseEntity {
