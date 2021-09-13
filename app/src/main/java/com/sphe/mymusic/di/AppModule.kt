@@ -17,6 +17,9 @@ class AppModule {
     fun provideAppContext(app: Application): Context = app.applicationContext
 
     @Provides
+    fun provideAppContentResolver(app: Application): ContentResolver = app.applicationContext.contentResolver
+
+    @Provides
     fun providePreferenceStore(app: Application): PreferencesStore = PreferencesStore(app.applicationContext)
 
     @Provides
