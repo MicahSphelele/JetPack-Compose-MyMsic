@@ -1,4 +1,4 @@
-package com.sphe.ui_components.common_ui
+package com.sphe.ui_components
 
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
