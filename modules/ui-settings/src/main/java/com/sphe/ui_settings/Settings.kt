@@ -19,6 +19,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.sphe.base.ui.ColorPalettePreference
 import com.sphe.base.ui.DarkModePreference
@@ -28,6 +29,8 @@ import com.sphe.ui_components.components.SelectableDropdownMenu
 import com.sphe.ui_compose.rememberFlowWithLifecycle
 import com.sphe.ui_theme.ThemeViewModel
 import com.sphe.ui_theme.theme.AppTheme
+import com.sphe.ui_theme.theme.DefaultTheme
+import com.sphe.ui_theme.theme.DefaultThemeDark
 
 val LocalAppVersion = staticCompositionLocalOf { "Unknown" }
 
@@ -110,9 +113,9 @@ fun LazyListScope.settingsAboutSection() {
             )
 
             SettingsLinkItem(
-                label = stringResource(R.string.settings_about_version),
-                text = LocalAppVersion.current,
-                link = stringResource(R.string.play_store_url)
+                labelRes = R.string.settings_about_version,
+                textRes = R.string.app_version,
+                linkRes = R.string.app_link
             )
         }
     }
@@ -185,5 +188,21 @@ private fun SettingsItem(
             modifier = Modifier.weight(contentWeight, false),
             contentAlignment = Alignment.CenterEnd
         ) { content() }
+    }
+}
+
+@Preview
+@Composable
+fun SettingsPreview() {
+    AppTheme(DefaultTheme) {
+        Settings(DefaultTheme, {})
+    }
+}
+
+@Preview
+@Composable
+fun SettingsPreviewDark() {
+    AppTheme(DefaultThemeDark) {
+        Settings(DefaultThemeDark, {})
     }
 }

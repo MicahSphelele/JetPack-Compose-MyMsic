@@ -41,8 +41,9 @@
     <string name="settings_about_author">Author</string>
     <string name="settings_about_author_text">Sphelele Ngubane</string>
     <string name="settings_about_author_link">https://github.com/MicahSphelele</string>
-    <string name="settings_about_version">1.0.0-DEBUG</string>
-    <string name="play_store_url">https://www.google.com/</string>
+    <string name="settings_about_version">App Version</string>
+    <string name="app_version">1.0.0-dev</string>
+    <string name="app_link">https://google.com/</string>
     <string name="settings_theme">Theme</string>
     <string name="settings_theme_darkMode">Dark Mode</string>
     <string name="settings_theme_colorPalette">Color palette</string>
