@@ -12,7 +12,7 @@ import javax.inject.Inject
 @HiltViewModel
 class SettingsViewModel @Inject constructor(handle: SavedStateHandle) : ViewModel() {
 
-    val settingsLink = flow {
-        emit("This is a settings link")
+    val settingsLinks = flow {
+        emit(arrayListOf("String One", "String Two"))
     }.shareIn(viewModelScope, SharingStarted.WhileSubscribed())
 }
