@@ -17,6 +17,7 @@
             <option value="$PROJECT_DIR$/modules/models" />
             <option value="$PROJECT_DIR$/modules/ui-components" />
             <option value="$PROJECT_DIR$/modules/ui-compose" />
+            <option value="$PROJECT_DIR$/modules/ui-settings" />
             <option value="$PROJECT_DIR$/modules/ui-theme" />
           </set>
         </option>
