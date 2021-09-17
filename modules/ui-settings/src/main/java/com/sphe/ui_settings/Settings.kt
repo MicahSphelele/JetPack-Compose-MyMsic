@@ -40,7 +40,7 @@ fun Settings(
     //val settingsLinks by rememberFlowWithLifecycle(viewModel.settingsLinks).collectAsState(emptyList())
 
     themeState?.let { theme ->
-        Settings(theme, themeViewModel::applyThemeState)
+        Settings(themeState = theme, setThemeState = themeViewModel::applyThemeState)
     }
 
 }
