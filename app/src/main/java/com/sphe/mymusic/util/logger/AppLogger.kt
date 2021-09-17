@@ -1,7 +1,9 @@
 package com.sphe.mymusic.util.logger
 
+import android.annotation.SuppressLint
 import android.util.Log
 
+@SuppressLint("LogNotTimber")
 object AppLogger {
 
     private const val TAG = "MyMusic"
