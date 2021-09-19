@@ -1,4 +1,4 @@
-package com.sphe.base.utils
+package com.sphe.base.extensions
 
 import androidx.lifecycle.SavedStateHandle
 
