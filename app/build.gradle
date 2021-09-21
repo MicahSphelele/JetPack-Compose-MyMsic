@@ -89,7 +89,7 @@ dependencies {
     implementation project(":modules:ui-compose")
     implementation project(":modules:ui-theme")
     implementation project(":modules:ui-components")
-    implementation project(":modules:models")
+    implementation project(':modules:data')
     //implementation project(":modules:ui-base")
     kapt "androidx.lifecycle:lifecycle-common-java8:2.3.1"
 

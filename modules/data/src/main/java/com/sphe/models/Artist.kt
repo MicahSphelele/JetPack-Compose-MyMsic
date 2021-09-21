@@ -21,6 +21,7 @@ data class Artist(
         .setSubtitle("$albumCount albums")
         .build(), FLAG_BROWSABLE
 ) {
+
     companion object {
         fun fromCursor(cursor: Cursor): Artist {
             return Artist(

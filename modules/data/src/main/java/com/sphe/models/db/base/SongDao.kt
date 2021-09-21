@@ -1,4 +1,4 @@
-package com.sphe.models.db
+package com.sphe.models.db.base
 
 import android.annotation.SuppressLint
 import android.content.ContentResolver
