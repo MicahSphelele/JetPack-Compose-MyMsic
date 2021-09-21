@@ -12,7 +12,7 @@ import java.util.*
 
 object Utils {
     const val MUSIC_ONLY_SELECTION = "${MediaStore.Audio.AudioColumns.IS_MUSIC}=1 AND ${MediaStore.Audio.AudioColumns.TITLE} != ''"
-    const val EMPTY_ALBUM_ART_URI = "android.resource://com.naman14.timberx/drawable/icon"
+    const val EMPTY_ALBUM_ART_URI = "android.resource://com.sphe/drawable/icon"
 
     fun getAlbumArtUri(albumId: Long) = ContentUris.withAppendedId(
         "content://media/external/audio/albumart".toUri(), albumId)
