@@ -74,5 +74,9 @@ dependencies {
     api "androidx.datastore:datastore-preferences:1.0.0"
     api "androidx.datastore:datastore-preferences-core:1.0.0"
 
+    api "com.google.android.exoplayer:exoplayer-core:2.15.1"
+    api "com.github.alashow.ExoPlayer-Extensions:extension-flac:v2.15.1"
+    api "com.google.android.exoplayer:extension-okhttp:2.15.1"
+
     implementation project(':modules:data')
 }
