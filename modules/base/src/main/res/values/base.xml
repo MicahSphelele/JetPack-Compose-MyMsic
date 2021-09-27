@@ -99,4 +99,6 @@
     <string name="genres">Genres</string>
     <string name="folders">Folders</string>
     <string name="playlists">Playlists</string>
+    <string name="media_playback">Media Playback</string>
+    <string name="media_playback_controls">Media playback controls</string>
 </resources>

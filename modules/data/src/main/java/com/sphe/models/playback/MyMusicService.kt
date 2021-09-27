@@ -155,8 +155,8 @@ class MyMusicService : MediaBrowserServiceCompat(), LifecycleOwner {
         }
     }
 
-    private fun addMediaRoots(mMediaRoot: MutableList<MediaBrowserCompat.MediaItem>, caller: String) {
-        mMediaRoot.add(MediaBrowserCompat.MediaItem(
+    private fun addMediaRoots(mediaRoot: MutableList<MediaBrowserCompat.MediaItem>, caller: String) {
+        mediaRoot.add(MediaBrowserCompat.MediaItem(
             MediaDescriptionCompat.Builder().apply {
                 setMediaId(MediaID(TYPE_ALL_ARTISTS.toString(), null, caller).asString())
                 setTitle(getString(R.string.artists))
@@ -165,7 +165,7 @@ class MyMusicService : MediaBrowserServiceCompat(), LifecycleOwner {
             }.build(), MediaBrowserCompat.MediaItem.FLAG_BROWSABLE
         ))
 
-        mMediaRoot.add(MediaBrowserCompat.MediaItem(
+        mediaRoot.add(MediaBrowserCompat.MediaItem(
             MediaDescriptionCompat.Builder().apply {
                 setMediaId(MediaID(TYPE_ALL_ALBUMS.toString(), null, caller).asString())
                 setTitle(getString(R.string.albums))
@@ -174,7 +174,7 @@ class MyMusicService : MediaBrowserServiceCompat(), LifecycleOwner {
             }.build(), MediaBrowserCompat.MediaItem.FLAG_BROWSABLE
         ))
 
-        mMediaRoot.add(MediaBrowserCompat.MediaItem(
+        mediaRoot.add(MediaBrowserCompat.MediaItem(
             MediaDescriptionCompat.Builder().apply {
                 setMediaId(MediaID(TYPE_ALL_SONGS.toString(), null, caller).asString())
                 setTitle(getString(R.string.songs))
@@ -183,7 +183,7 @@ class MyMusicService : MediaBrowserServiceCompat(), LifecycleOwner {
             }.build(), MediaBrowserCompat.MediaItem.FLAG_BROWSABLE
         ))
 
-        mMediaRoot.add(MediaBrowserCompat.MediaItem(
+        mediaRoot.add(MediaBrowserCompat.MediaItem(
             MediaDescriptionCompat.Builder().apply {
                 setMediaId(MediaID(TYPE_ALL_PLAYLISTS.toString(), null, caller).asString())
                 setTitle(getString(R.string.playlists))
@@ -192,7 +192,7 @@ class MyMusicService : MediaBrowserServiceCompat(), LifecycleOwner {
             }.build(), MediaBrowserCompat.MediaItem.FLAG_BROWSABLE
         ))
 
-        mMediaRoot.add(MediaBrowserCompat.MediaItem(
+        mediaRoot.add(MediaBrowserCompat.MediaItem(
             MediaDescriptionCompat.Builder().apply {
                 setMediaId(MediaID(TYPE_ALL_GENRES.toString(), null, caller).asString())
                 setTitle(getString(R.string.genres))
