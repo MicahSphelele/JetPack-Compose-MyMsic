@@ -1,22 +1,7 @@
 package com.sphe.models.extension
 
-import android.app.Activity
 import android.database.Cursor
-import android.os.Bundle
-import android.support.v4.media.MediaBrowserCompat
-import android.support.v4.media.MediaDescriptionCompat
-import android.support.v4.media.MediaMetadataCompat
-import android.support.v4.media.session.MediaControllerCompat
 import android.support.v4.media.session.MediaSessionCompat
-import android.support.v4.media.session.PlaybackStateCompat
-import androidx.core.net.toUri
-import com.google.android.gms.cast.MediaInfo
-import com.sphe.models.Song
-import com.sphe.models.constants.Constants
-import com.sphe.models.constants.Utils.getIPAddress
-import java.net.MalformedURLException
-import java.net.URL
-import java.util.ArrayList
 
 fun Int.normalizeTrackNumber(): Int {
     var returnValue = this
