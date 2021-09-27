@@ -28,7 +28,7 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-private const val CHANNEL_ID = "mymusic_app_channel_01"
+private const val CHANNEL_ID = "my_music_app_channel_01"
 private const val NOTIFICATION_ID = 888
 
 interface Notifications {
@@ -72,7 +72,7 @@ class RealNotifications @Inject constructor(private val context: Context,
         val pm: PackageManager = context.packageManager
         val nowPlayingIntent = pm.getLaunchIntentForPackage(context.packageName)
         val clickIntent = PendingIntent.getActivity(context, 0, nowPlayingIntent,
-            PendingIntent.FLAG_UPDATE_CURRENT
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_MUTABLE
         )
 
         if (postTime == -1L) {
