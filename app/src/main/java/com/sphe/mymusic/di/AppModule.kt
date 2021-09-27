@@ -1,6 +1,7 @@
 package com.sphe.mymusic.di
 
 import android.app.Application
+import android.app.NotificationManager
 import android.content.ContentResolver
 import android.content.Context
 import com.sphe.base.base.CoroutineDispatchers
@@ -30,6 +31,11 @@ class AppModule {
     @Provides
     fun contentResolver(app: Application): ContentResolver = app.contentResolver
 
+    @Provides
+    fun providesNotificationManager(app: Application): NotificationManager =
+        app.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+
+
     @Singleton
     @Provides
     fun coroutineDispatchers() = CoroutineDispatchers(
@@ -38,4 +44,5 @@ class AppModule {
         computation = Dispatchers.Default,
         main = Dispatchers.Main
     )
+
 }

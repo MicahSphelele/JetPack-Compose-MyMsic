@@ -2,8 +2,13 @@ package com.sphe.models.utils
 
 import android.content.ContentUris
 import android.content.Context
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.net.Uri
 import android.provider.MediaStore
+import com.sphe.models.R
+import com.sphe.models.constants.Utils
+import java.io.FileNotFoundException
 
 object MusicUtils {
 
@@ -21,5 +26,14 @@ object MusicUtils {
                 ""
             }
         } ?: throw IllegalStateException("Unable to query $contentUri, system returned null.")
+    }
+
+    fun getAlbumArtBitmap(context: Context, albumId: Long?): Bitmap? {
+        if (albumId == null) return null
+        return try {
+            MediaStore.Images.Media.getBitmap(context.contentResolver, Utils.getAlbumArtUri(albumId))
+        } catch (e: FileNotFoundException) {
+            BitmapFactory.decodeResource(context.resources, R.drawable.music_note)
+        }
     }
 }

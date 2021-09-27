@@ -6,9 +6,11 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.media.MediaBrowserServiceCompat
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.MainScope
 
 @AndroidEntryPoint
-class MyMusicService : MediaBrowserServiceCompat(), LifecycleOwner {
+class MyMusicService : MediaBrowserServiceCompat(), CoroutineScope by MainScope() {
 
     companion object {
         const val MEDIA_ID_ARG = "MEDIA_ID"
@@ -44,7 +46,4 @@ class MyMusicService : MediaBrowserServiceCompat(), LifecycleOwner {
         TODO("Not yet implemented")
     }
 
-    override fun getLifecycle(): Lifecycle {
-        TODO("Not yet implemented")
-    }
 }
