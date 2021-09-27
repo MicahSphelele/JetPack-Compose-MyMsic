@@ -89,4 +89,6 @@
         <item>Sat</item>
         <item>Sun</item>
     </string-array>
+
+    <string name="app_name">MyMusic</string>
 </resources>

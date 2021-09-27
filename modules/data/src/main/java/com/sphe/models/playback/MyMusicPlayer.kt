@@ -1,11 +1,14 @@
 package com.sphe.models.playback
 
-import android.os.Bundle
-import android.support.v4.media.session.MediaSessionCompat
-import android.support.v4.media.session.PlaybackStateCompat
-import androidx.core.os.bundleOf
-import com.sphe.models.Song
-import com.sphe.models.constants.Constants.BY_UI_KEY
+import android.content.Context
+import android.net.Uri
+import com.google.android.exoplayer2.*
+import com.google.android.exoplayer2.audio.AudioAttributes
+import com.google.android.exoplayer2.util.PriorityTaskManager
+import dagger.hilt.android.qualifiers.ApplicationContext
+import timber.log.Timber
+import javax.inject.Inject
+import javax.inject.Singleton
 
 const val REPEAT_MODE = "repeat_mode"
 const val SHUFFLE_MODE = "shuffle_mode"
@@ -18,44 +21,152 @@ const val DEFAULT_FORWARD_REWIND = 10 * 1000
 typealias OnPrepared<T> = T.() -> Unit
 typealias OnError<T> = T.(error: Throwable) -> Unit
 typealias OnCompletion<T> = T.() -> Unit
-typealias OnBuffering<T> = T.() -> Unit
-typealias OnReady<T> = T.() -> Unit
-typealias OnMetaDataChanged = MyMusicPlayer.() -> Unit
-typealias OnIsPlaying<T> = T.(playing: Boolean, byUi: Boolean) -> Unit
 
 interface MyMusicPlayer {
-    fun getSession(): MediaSessionCompat
-    fun playAudio(extras: Bundle = bundleOf(BY_UI_KEY to true))
-    suspend fun playSong(id: String, index: Int? = null)
-    suspend fun playSong(song: Song, index: Int? = null)
-    fun seekTo(position: Long)
-    fun fastForward()
-    fun rewind()
-    fun pause(extras: Bundle = bundleOf(BY_UI_KEY to true))
-    suspend fun nextAudio(): String?
-    suspend fun repeatAudio()
-    suspend fun repeatQueue()
-    suspend fun previousAudio()
-    fun playNext(id: String)
-    suspend fun skipTo(position: Int)
-    fun removeFromQueue(position: Int)
-    fun removeFromQueue(id: String)
-    fun swapQueueAudios(from: Int, to: Int)
-    fun stop(byUser: Boolean = true)
+    fun play()
+
+    fun setSource(path: String): Boolean
+
+    fun setSource(uri: Uri): Boolean
+
+    fun prepare()
+
+    fun seekTo(position: Int)
+
+    fun isPrepared(): Boolean
+
+    fun isPlaying(): Boolean
+
+    fun position(): Int
+
+    fun pause()
+
+    fun stop()
+
+    fun reset()
+
     fun release()
-    fun onPlayingState(playing: OnIsPlaying<MyMusicPlayer>)
+
     fun onPrepared(prepared: OnPrepared<MyMusicPlayer>)
+
     fun onError(error: OnError<MyMusicPlayer>)
+
     fun onCompletion(completion: OnCompletion<MyMusicPlayer>)
-    fun onMetaDataChanged(metaDataChanged: OnMetaDataChanged)
-    fun updatePlaybackState(applier: PlaybackStateCompat.Builder.() -> Unit = {})
-    fun setPlaybackState(state: PlaybackStateCompat)
-    fun updateData(list: List<String> = emptyList(), title: String? = null)
-    fun setData(list: List<String> = emptyList(), title: String? = null)
-    suspend fun setDataFromMediaId(_mediaId: String, extras: Bundle = bundleOf())
-    suspend fun saveQueueState()
-    suspend fun restoreQueueState()
-    fun clearRandomAudioPlayed()
-    fun setCurrentAudioId(audioId: String, index: Int? = null)
-    fun shuffleQueue(isShuffle: Boolean)
+}
+
+@Singleton
+class RealMyMusicPlayer @Inject constructor(@ApplicationContext private val context: Context) :
+    MyMusicPlayer, Player.Listener {
+
+    private var isPrepared = false
+
+    private var playerBase: ExoPlayer? = null
+    private val player: ExoPlayer
+        get() {
+            if (playerBase == null) {
+                playerBase = createPlayer(this)
+            }
+            return playerBase ?: throw IllegalStateException("Could not create an audio player")
+        }
+
+    private var onPrepared: OnPrepared<MyMusicPlayer> = {}
+    private var onError: OnError<MyMusicPlayer> = {}
+    private var onCompletion: OnCompletion<MyMusicPlayer> = {}
+
+    override fun play() {
+        player.play()
+    }
+
+    override fun setSource(path: String): Boolean {
+        Timber.d("setSource() - $path")
+        try {
+            player.setMediaItem(MediaItem.fromUri(path))
+            //player.setDataSource(path)
+        } catch (e: Exception) {
+            Timber.d("setSource() - failed")
+            onError(this, e)
+            return false
+        }
+        return true
+    }
+
+    override fun setSource(uri: Uri): Boolean {
+        Timber.d("setSource() - $uri")
+        try {
+            player.setMediaItem(MediaItem.fromUri(uri))
+            //player.setDataSource(path)
+        } catch (e: Exception) {
+            Timber.d("setSource() - failed")
+            onError(this, e)
+            return false
+        }
+        return true
+    }
+
+    override fun prepare() {
+        player.prepare()
+    }
+
+    override fun seekTo(position: Int) {
+        player.seekTo(position.toLong())
+    }
+
+    override fun isPrepared(): Boolean = isPrepared
+
+    override fun isPlaying(): Boolean = player.isPlaying
+
+    override fun position(): Int = player.currentPosition.toInt()
+
+    override fun pause() {
+        player.pause()
+    }
+
+    override fun stop() {
+        player.stop()
+    }
+
+    override fun reset() {
+        player.playWhenReady = false
+    }
+
+    override fun release() {
+        player.release()
+    }
+
+    override fun onPrepared(prepared: OnPrepared<MyMusicPlayer>) {
+        this.onPrepared = prepared
+    }
+
+    override fun onError(error: OnError<MyMusicPlayer>) {
+        this.onError = error
+    }
+
+    override fun onCompletion(completion: OnCompletion<MyMusicPlayer>) {
+        this.onCompletion = completion
+    }
+
+    private fun createPlayer(owner: RealMyMusicPlayer): ExoPlayer {
+        return SimpleExoPlayer.Builder(
+            context,
+            DefaultRenderersFactory(context).apply {
+                setExtensionRendererMode(DefaultRenderersFactory.EXTENSION_RENDERER_MODE_PREFER)
+            }
+        )
+            .setLoadControl(object : DefaultLoadControl() {
+                override fun onPrepared() {
+                    isPrepared = true
+                    onPrepared(owner)
+                }
+            })
+            .build().apply {
+                val attr = AudioAttributes.Builder().apply {
+                    setContentType(C.CONTENT_TYPE_MUSIC)
+                    setUsage(C.USAGE_MEDIA)
+                }.build()
+
+                setAudioAttributes(attr, false)
+                setPriorityTaskManager(PriorityTaskManager())
+                addListener(owner)
+            }
+    }
 }
