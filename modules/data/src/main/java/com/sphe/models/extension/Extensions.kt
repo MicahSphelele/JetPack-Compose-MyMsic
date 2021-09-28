@@ -78,4 +78,42 @@ fun List<MediaSessionCompat.QueueItem>?.toIDList(): LongArray {
     return this?.map { it.queueId }?.toLongArray() ?: LongArray(0)
 }
 
+fun timeAddZeros(number: Int?, ifZero: String = ""): String {
+    return when (number) {
+        0 -> ifZero
+        1, 2, 3, 4, 5, 6, 7, 8, 9 -> "0$number"
+        else -> number.toString()
+    }
+}
+
+fun String?.orNA() = when (this.isNullOrEmpty()) {
+    false -> this
+    else -> "N/A"
+}
+
+fun String?.orBlank() = when (this == null) {
+    false -> this
+    else -> "N/A"
+}
+
+fun List<String?>.interpunctize(interpunct: String = " ꞏ ") = joinToString(interpunct)
+
+fun String?.isNotNullandNotBlank() = this != null && this.isNotBlank()
+
+fun CharSequence.truncate(limit: Int, ellipsize: String = "..."): CharSequence {
+    if (length > limit) {
+        return substring(0, limit) + ellipsize
+    }
+    return this
+}
+
+fun Long.millisToDuration(): String {
+    val seconds = (this / 1000).toInt() % 60
+    val minutes = (this / (1000 * 60) % 60).toInt()
+    val hours = (this / (1000 * 60 * 60) % 24).toInt()
+    "${timeAddZeros(hours)}:${timeAddZeros(minutes, "0")}:${timeAddZeros(seconds, "00")}".apply {
+        return if (startsWith(":")) replaceFirst(":", "") else this
+    }
+}
+
 
