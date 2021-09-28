@@ -126,7 +126,7 @@ class RealMyMusicPlayer @Inject constructor(@ApplicationContext private val cont
     }
 
     override fun reset() {
-        player.playWhenReady = false
+        player.playWhenReady = true
     }
 
     override fun release() {
