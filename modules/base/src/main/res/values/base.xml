@@ -101,4 +101,8 @@
     <string name="playlists">Playlists</string>
     <string name="media_playback">Media Playback</string>
     <string name="media_playback_controls">Media playback controls</string>
+
+    <string name="audio.menu.cd">Audio menu</string>
+    <string name="audio.menu.play">Play</string>
+    <string name="audio.menu.playNext">Play next</string>
 </resources>
