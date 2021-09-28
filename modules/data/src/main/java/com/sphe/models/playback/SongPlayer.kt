@@ -87,8 +87,7 @@ class RealSongPlayer @Inject constructor(
     private val songsRepository: SongsRepository,
     private val queueDao: QueueDao,
     private val queue: Queue
-) :
-    SongPlayer, AudioManager.OnAudioFocusChangeListener {
+) : SongPlayer, AudioManager.OnAudioFocusChangeListener {
 
     private var isInitialized: Boolean = false
 
@@ -100,19 +99,22 @@ class RealSongPlayer @Inject constructor(
     private var metadataBuilder = MediaMetadataCompat.Builder()
     private var stateBuilder = createDefaultPlaybackState()
 
-    private lateinit var audioManager: AudioManager
+    private var audioManager: AudioManager
     private lateinit var focusRequest: AudioFocusRequest
 
-    private var mediaSession = MediaSessionCompat(context, context.getString(R.string.app_name)).apply {
-        setFlags(MediaSessionCompat.FLAG_HANDLES_MEDIA_BUTTONS or MediaSessionCompat.FLAG_HANDLES_TRANSPORT_CONTROLS)
-        setCallback(MediaSessionCallback(this, this@RealSongPlayer, songsRepository, queueDao))
-        setPlaybackState(stateBuilder.build())
+    private var mediaSession =
+        MediaSessionCompat(context, context.getString(R.string.app_name)).apply {
+            setFlags(MediaSessionCompat.FLAG_HANDLES_MEDIA_BUTTONS or MediaSessionCompat.FLAG_HANDLES_TRANSPORT_CONTROLS)
+            setCallback(MediaSessionCallback(this, this@RealSongPlayer, songsRepository, queueDao))
+            setPlaybackState(stateBuilder.build())
 
-        val sessionIntent = context.packageManager.getLaunchIntentForPackage(context.packageName)
-        val sessionActivityPendingIntent = PendingIntent.getActivity(context, 0, sessionIntent, 0)
-        setSessionActivity(sessionActivityPendingIntent)
-        isActive = true
-    }
+            val sessionIntent =
+                context.packageManager.getLaunchIntentForPackage(context.packageName)
+            val sessionActivityPendingIntent =
+                PendingIntent.getActivity(context, 0, sessionIntent, 0)
+            setSessionActivity(sessionActivityPendingIntent)
+            isActive = true
+        }
 
     init {
         queue.setMediaSession(mediaSession)
@@ -162,7 +164,11 @@ class RealSongPlayer @Inject constructor(
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             audioManager.requestAudioFocus(focusRequest)
         } else {
-            audioManager.requestAudioFocus(this, AudioManager.STREAM_MUSIC, AudioManager.AUDIOFOCUS_GAIN)
+            audioManager.requestAudioFocus(
+                this,
+                AudioManager.STREAM_MUSIC,
+                AudioManager.AUDIOFOCUS_GAIN
+            )
         }
         queue.ensureCurrentId()
         if (isInitialized) {
@@ -261,7 +267,7 @@ class RealSongPlayer @Inject constructor(
 
     override fun playNext(id: Long) {
         Timber.d("playNext(): $id")
-       queue.moveToNext(id)
+        queue.moveToNext(id)
     }
 
     override fun swapQueueSongs(from: Int, to: Int) {
