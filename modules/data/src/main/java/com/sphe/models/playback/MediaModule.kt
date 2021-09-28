@@ -38,8 +38,15 @@ class MediaModule {
 
     @Singleton
     @Provides
-    fun providesSessionPlayback(@ApplicationContext context: Context): MediaSessionConnection =
-        RealMediaSessionConnection(context, ComponentName(context, MyMusicService::class.java))
+    fun providesSessionPlayback(
+        @ApplicationContext context: Context,
+        songsRepository: SongsRepository
+    ): MediaSessionConnection =
+        RealMediaSessionConnection(
+            context,
+            ComponentName(context, MyMusicService::class.java),
+            songsRepository
+        )
 
 
 }
