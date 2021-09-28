@@ -33,6 +33,9 @@ MediaDescriptionCompat.Builder()
 .setIconUri(getAlbumArtUri(albumId))
 .setSubtitle(artist)
 .build(), FLAG_PLAYABLE) {
+
+    fun durationMillis() = (duration * 1000).toLong()
+
     companion object {
         fun fromCursor(cursor: Cursor, albumId: Long = -1, artistId: Long = -1): Song {
             return Song(
