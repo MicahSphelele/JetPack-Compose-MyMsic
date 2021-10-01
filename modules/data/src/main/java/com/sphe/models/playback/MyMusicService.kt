@@ -1,22 +1,33 @@
 package com.sphe.models.playback
 
+import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.media.MediaBrowserCompat
 import android.support.v4.media.MediaDescriptionCompat
 import android.support.v4.media.MediaMetadataCompat
 import android.support.v4.media.session.PlaybackStateCompat
+import android.util.Log
 import androidx.core.net.toUri
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LifecycleRegistry
 import androidx.media.MediaBrowserServiceCompat
+import androidx.media.session.MediaButtonReceiver
 import com.sphe.base.base.CoroutineDispatchers
 import com.sphe.models.MediaID
+import com.sphe.models.MediaID.Companion.CALLER_OTHER
 import com.sphe.models.MediaID.Companion.CALLER_SELF
 import com.sphe.models.R
+import com.sphe.models.constants.Constants
+import com.sphe.models.constants.Constants.ACTION_NEXT
+import com.sphe.models.constants.Constants.ACTION_PREVIOUS
+import com.sphe.models.constants.Constants.APP_PACKAGE_NAME
 import com.sphe.models.constants.Utils.EMPTY_ALBUM_ART_URI
 import com.sphe.models.db.QueueHelper
 import com.sphe.models.db.entities.QueueEntity
+import com.sphe.models.extension.isPlayEnabled
+import com.sphe.models.extension.isPlaying
 import com.sphe.models.extension.toIDList
 import com.sphe.models.extension.toRawMediaItems
 import com.sphe.models.notifications.Notifications
@@ -109,20 +120,66 @@ class MyMusicService : MediaBrowserServiceCompat(), LifecycleOwner {
         }
     }
 
+    @SuppressLint("LogNotTimber")
+    override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        Log.d("MyMusic", "onStartCommand(): ${intent?.action}")
+
+        if (intent == null) {
+            return START_STICKY
+        }
+
+        val mediaSession = player.getSession()
+        val controller = mediaSession.controller
+
+        when (intent.action) {
+            Constants.ACTION_PLAY_PAUSE -> {
+                controller.playbackState?.let { playbackState ->
+                    when {
+                        playbackState.isPlaying -> controller.transportControls.pause()
+                        playbackState.isPlayEnabled -> controller.transportControls.play()
+                    }
+                }
+            }
+            ACTION_NEXT -> {
+                controller.transportControls.skipToNext()
+            }
+            ACTION_PREVIOUS -> {
+                controller.transportControls.skipToPrevious()
+            }
+        }
+
+        MediaButtonReceiver.handleIntent(mediaSession, intent)
+        return START_STICKY
+    }
 
     override fun onGetRoot(
         clientPackageName: String,
         clientUid: Int,
         rootHints: Bundle?
-    ): BrowserRoot? {
-        TODO("Not yet implemented")
+    ): BrowserRoot {
+        val caller = if (clientPackageName == APP_PACKAGE_NAME) {
+            CALLER_SELF
+        } else {
+            CALLER_OTHER
+        }
+        return BrowserRoot(MediaID(MEDIA_ID_ROOT.toString(), null, caller).asString(), null)
+    }
+
+    @SuppressLint("LogNotTimber")
+    @DelicateCoroutinesApi
+    override fun onDestroy() {
+        super.onDestroy()
+        lifecycle.currentState = Lifecycle.State.DESTROYED
+        Log.d("MyMusic", "onDestroy()")
+        saveCurrentData()
+        player.release()
     }
 
     override fun onLoadChildren(
         parentId: String,
         result: Result<MutableList<MediaBrowserCompat.MediaItem>>
     ) {
-        TODO("Not yet implemented")
+
     }
 
     override fun getLifecycle(): Lifecycle  = lifecycle
@@ -258,4 +315,5 @@ class MyMusicService : MediaBrowserServiceCompat(), LifecycleOwner {
             mediaItems.toRawMediaItems()
         }
     }
+
 }
