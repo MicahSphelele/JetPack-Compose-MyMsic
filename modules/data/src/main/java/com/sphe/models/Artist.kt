@@ -13,8 +13,9 @@ data class Artist(
     var id: Long = 0,
     var name: String = "",
     var songCount: Int = 0,
-    var albumCount: Int = 0
-)  : MediaBrowserCompat.MediaItem(
+    var albumCount: Int = 0,
+    var albumId: Long = 0
+) : MediaBrowserCompat.MediaItem(
     MediaDescriptionCompat.Builder()
         .setMediaId(MediaID(TYPE_ARTIST.toString(), id.toString()).asString())
         .setTitle(name)
@@ -28,7 +29,8 @@ data class Artist(
                 id = cursor.value(MediaStore.Audio.Artists._ID),
                 name = cursor.value(MediaStore.Audio.Artists.ARTIST),
                 songCount = cursor.value(MediaStore.Audio.Artists.NUMBER_OF_TRACKS),
-                albumCount = cursor.value(MediaStore.Audio.Artists.NUMBER_OF_ALBUMS)
+                albumCount = cursor.value(MediaStore.Audio.Artists.NUMBER_OF_ALBUMS),
+                albumId = cursor.value(MediaStore.Audio.Artists.Albums.ALBUM_ID)
             )
         }
     }
