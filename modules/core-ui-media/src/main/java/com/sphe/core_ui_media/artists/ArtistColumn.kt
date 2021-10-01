@@ -17,6 +17,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberImagePainter
 import com.google.accompanist.placeholder.material.placeholder
 import com.sphe.base.base.imageloading.ImageLoading
@@ -31,6 +32,7 @@ object ArtistsDefaults {
     val nameWidth = 100.dp
 }
 
+@ExperimentalCoilApi
 @Composable
 fun ArtistColumn(
     artist: Artist,
